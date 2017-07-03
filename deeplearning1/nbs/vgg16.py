@@ -145,8 +145,13 @@ class Vgg16():
 
             See Keras documentation: https://keras.io/preprocessing/image/
         """
-        return gen.flow_from_directory(path, target_size=(224,224),
+        batches =  gen.flow_from_directory(path, target_size=(224,224),
                 class_mode=class_mode, shuffle=shuffle, batch_size=batch_size)
+
+        batches.nb_class = batches.num_class
+        batches.nb_sample = batches.samples
+
+        return batches
 
 
     def ft(self, num):
