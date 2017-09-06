@@ -1,8 +1,10 @@
 from __future__ import division,print_function
 from keras import backend
 backend.set_image_dim_ordering('th')
+import os
 
 path = "../../data/dogscats/"
+print(os.getcwd())
 
 
 import os, json
