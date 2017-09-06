@@ -1,9 +1,9 @@
+from __future__ import division,print_function
 from keras import backend
 backend.set_image_dim_ordering('th')
 
 path = "../../data/dogscats/"
 
-from __future__ import division,print_function
 
 import os, json
 from glob import glob
