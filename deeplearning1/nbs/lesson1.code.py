@@ -3,8 +3,9 @@ from keras import backend
 backend.set_image_dim_ordering('th')
 import os
 
-path = "../../data/dogscats/"
-print(os.getcwd())
+path = os.path.abspath("../../data/dogscats/")
+print("cwd: "+os.getcwd())
+print("data_path: "+path)
 
 
 import os, json
