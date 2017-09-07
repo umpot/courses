@@ -51,5 +51,5 @@ bl = vgg.fit(batches, val_batches, nb_epoch=1)
 print('Fitting is done')
 
 
-to_predict_batches = get_list_of_images(data_path + '/to_predict')
+to_predict_batches = vgg.get_batches(data_path + '/to_predict', batch_size=batch_size)
 res = vgg.predict(to_predict_batches)
