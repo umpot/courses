@@ -82,6 +82,22 @@ class Vgg16():
         classes = [self.classes[idx] for idx in idxs]
         return np.array(preds), idxs, classes
 
+    def predict_straight(self, imgs, details=False):
+        """
+            Predict the labels of a set of images using the VGG16 model.
+
+            Args:
+                imgs (ndarray)    : An array of N images (size: N x width x height x channels).
+                details : ??
+
+            Returns:
+                preds (np.array) : Highest confidence value of the predictions for each image.
+                idxs (np.ndarray): Class index of the predictions with the max confidence.
+                classes (list)   : Class labels of the predictions with the max confidence.
+        """
+        # predict probability of each class for each image
+        return self.model.predict(imgs)
+
 
     def ConvBlock(self, layers, filters):
         """

@@ -59,8 +59,8 @@ def get_list_of_images(d):
 
 def create_submission(res, filenames):
     ids = [extract_id(s) for s in filenames]
-    labels = res[1]
-    z = zip(ids, labels)
+    probs = res[:,1]
+    z = zip(ids, probs)
     z.sort(key=lambda s: int(s[0]))
     df = pd.DataFrame({'id':[x[0] for x in z], 'label':[x[1] for x in z]})
     f_name = 'sub_{}.csv'.format(get_time_str())
@@ -77,5 +77,6 @@ vgg.finetune(train_batches)
 # vgg.fit(train_batches, val_batches, nb_epoch=10)
 vgg.fit_without_val_batches(train_batches, nb_epoch=1)
 print('Fitting is done')
-res = vgg.predict(to_predict_arr)
+res = vgg.predict_straight(to_predict_arr)
 create_submission(res, filenames)
+print("================Done!====================")
