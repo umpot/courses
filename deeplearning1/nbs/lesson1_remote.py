@@ -20,7 +20,7 @@ from vgg16 import Vgg16
 
 
 
-base_path = "/home/dpetrovskyi/fai"
+base_path = "/home/dd_petrovskiy/courses/data/dogscats"
 train_path = base_path + '/train'
 valid_path = base_path + '/valid'
 test_path = base_path + '/test1'
