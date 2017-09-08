@@ -12,8 +12,7 @@ import re
 from keras import backend
 backend.set_image_dim_ordering('tf')
 
-current_dir = '/home/dpetrovskyi/PycharmProjects/courses/deeplearning1/nbs'
-sys.path.append(current_dir)
+sys.path.append('.')
 import utils; reload(utils)
 from utils import plots
 import vgg16; reload(vgg16)
@@ -22,11 +21,11 @@ from vgg16 import Vgg16
 
 
 base_path = "/home/dpetrovskyi/fai"
-train_path = base_path + '/sample'
+train_path = base_path + '/train'
 valid_path = base_path + '/valid'
-test_path = base_path + '/to_predict'
+test_path = base_path + '/test1'
 
-batch_size = 4
+batch_size = 64
 vgg = Vgg16()
 
 def get_time_str():
@@ -38,7 +37,7 @@ def extract_id(f_name):
 
 
 def get_list_of_images(d):
-    b_sz = 4
+    b_sz = 64
     bb = vgg.get_batches(d, shuffle=False, batch_size=b_sz)
 
     res = []
