@@ -75,7 +75,7 @@ to_predict_arr, filenames = get_list_of_images(test_path)
 
 vgg.finetune(train_batches)
 # vgg.fit(train_batches, val_batches, nb_epoch=10)
-vgg.fit_without_val_batches(train_batches, nb_epoch=1)
+vgg.fit_without_val_batches(train_batches, nb_epoch=5)
 print('Fitting is done')
 res = vgg.predict_straight(to_predict_arr)
 create_submission(res, filenames)
