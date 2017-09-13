@@ -31,6 +31,6 @@ folder='/home/dd_petrovskiy/courses/deeplearning1/nbs'
 destination='.'
 
 files = [
-    'sub_2017_09_08__12_13_16.csv'
+    'sub_2017_09_08__16_33_20.csv'
 ]
 run(instance_name, zone, folder, files, destination)
