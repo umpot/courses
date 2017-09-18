@@ -31,6 +31,6 @@ folder='/home/dd_petrovskiy/courses/my'
 destination='.'
 
 files = [
-    'sub_2017_09_18__09_15_24.csv'
+    'sub_2017_09_18__10_37_06.csv'
 ]
 run(instance_name, zone, folder, files, destination)

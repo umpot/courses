@@ -9,7 +9,7 @@ from keras.layers.normalization import BatchNormalization
 from keras.layers.convolutional import Convolution2D, ZeroPadding2D, MaxPooling2D
 from keras.models import Sequential
 from keras.preprocessing.image import ImageDataGenerator, DirectoryIterator
-from keras.optimizers import Adam
+from keras.optimizers import Adam, RMSprop
 
 import matplotlib.pyplot as plt
 
