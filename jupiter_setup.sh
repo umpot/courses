@@ -1,0 +1,1 @@
+jupyter notebook --ip 10.138.0.2 --port 9000 --no-browser
