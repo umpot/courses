@@ -20,9 +20,9 @@ def run(instance_name, zone, folder, files, destination='.'):
 
 
 
-instance_name = 'fai'
+instance_name = 'instance-1'
 zone='us-west1-b'
-folder='/home/dd_petrovskiy/courses/deeplearning1/nbs'
+folder='/home/dd_petrovskiy/courses/my'
 
 
 
@@ -31,6 +31,6 @@ folder='/home/dd_petrovskiy/courses/deeplearning1/nbs'
 destination='.'
 
 files = [
-    'sub_2017_09_08__16_33_20.csv'
+    'sub_2017_09_18__09_15_24.csv'
 ]
 run(instance_name, zone, folder, files, destination)
