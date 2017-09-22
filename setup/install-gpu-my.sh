@@ -7,13 +7,16 @@ sudo apt-get --assume-yes install tmux build-essential gcc g++ make binutils
 sudo apt-get --assume-yes install software-properties-common
 
 # download and install GPU drivers
-wget "http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-repo-ubuntu1604_8.0.44-1_amd64.deb" -O "cuda-repo-ubuntu1604_8.0.44-1_amd64.deb"
+echo "Checking for CUDA and installing."
+## Check for CUDA and try to install.
+if ! dpkg-query -W cuda; then
+  curl -O http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_8.0.61-1_amd64.deb
+  dpkg -i ./cuda-repo-ubuntu1404_8.0.61-1_amd64.deb
+  apt-get update
+  apt-get install cuda -y
+  apt-get install linux-headers-$(uname -r) -y
+fi
 
-sudo dpkg -i cuda-repo-ubuntu1604_8.0.44-1_amd64.deb
-sudo apt-get update
-sudo apt-get -y install cuda
-sudo modprobe nvidia
-nvidia-smi
 
 # install Anaconda for current user
 mkdir downloads
@@ -36,7 +39,7 @@ floatX = float32
 root = /usr/local/cuda" > ~/.theanorc
 
 # install and configure keras
-#pip install keras==1.2.2
+pip install keras
 mkdir ~/.keras
 echo '{
     "image_dim_ordering": "th",
@@ -53,14 +56,10 @@ sudo cp lib64/* /usr/local/cuda/lib64/
 sudo cp include/* /usr/local/cuda/include/
 
 # configure jupyter and prompt for password
-jupyter notebook --generate-config
-jupass=`python -c "from notebook.auth import passwd; print(passwd())"`
-echo "c.NotebookApp.password = u'"$jupass"'" >> $HOME/.jupyter/jupyter_notebook_config.py
-echo "c.NotebookApp.ip = '*'
-c.NotebookApp.open_browser = False" >> $HOME/.jupyter/jupyter_notebook_config.py
+#jupyter notebook --generate-config
+#jupass=`python -c "from notebook.auth import passwd; print(passwd())"`
+#echo "c.NotebookApp.password = u'"$jupass"'" >> $HOME/.jupyter/jupyter_notebook_config.py
+#echo "c.NotebookApp.ip = '*'
+#c.NotebookApp.open_browser = False" >> $HOME/.jupyter/jupyter_notebook_config.py
 
-# clone the fast.ai course repo and prompt to start notebook
-cd ~
-git clone https://github.com/fastai/courses.git
-echo "\"jupyter notebook\" will start Jupyter on port 8888"
-echo "If you get an error instead, try restarting your session so your $PATH is updated"
+
