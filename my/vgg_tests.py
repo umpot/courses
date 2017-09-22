@@ -178,7 +178,7 @@ to_predict_fp = '/home/dpetrovskyi/fai/to_predict'
 
 model = finetune_and_compile_vgg(weights_fp)
 
-batch_size = 8
+batch_size = 64
 train_gen = load_generator(sample_fp, batch_size)
 valid_gen = load_generator(valid_fp, batch_size)
 to_pred_gen = load_generator(to_predict_fp, batch_size)
