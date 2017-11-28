@@ -89,9 +89,18 @@ train_inp, labels_train = shuffle_input(train_inp, labels_train)
 test_inp, labels_test = shuffle_input(test_inp, labels_test)
 
 model = Sequential([
-    Dense(50, activation='relu', input_shape=(embeding_dim*50,)),
-    Dense(1, activation='softmax', input_shape=(50,))
+    Dense(1, activation='softmax', input_shape=(embeding_dim*50,))
 ])
 
-model.compile(optimizer=Adam(1e-6), loss='binary_crossentropy', metrics=['accuracy'])
+model.compile(optimizer=Adam(), loss='binary_crossentropy', metrics=['accuracy'])
 model.fit(train_inp, labels_train, validation_data=(test_inp, labels_test), epochs=1, batch_size=64)
+
+
+train = np.random.uniform(0,1, 1000)
+labels = [int(x>0.5) for x in train]
+
+model = Sequential([
+    Dense(1, activation='softmax', input_shape=(1,))
+])
+model.compile(optimizer=Adam(), loss='binary_crossentropy', metrics=['accuracy'])
+model.fit(train, labels, epochs=100, batch_size=64)
