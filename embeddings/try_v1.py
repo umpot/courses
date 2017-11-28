@@ -213,7 +213,7 @@ emb_model = Sequential([
     Embedding(vocab_size, 50, input_length=seq_len, dropout=0.2,
               weights=[emb], trainable=False),
     Dropout(0.25),
-    Convolution1D(64, 5, border_mode='same', activation='relu'),
+    Convolution1D(64, 3, border_mode='same', activation='relu'),
     Dropout(0.25),
     MaxPooling1D(),
     Flatten(),
