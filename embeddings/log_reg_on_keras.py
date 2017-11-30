@@ -76,31 +76,58 @@ f = open(path, 'rb')
 x_train_words = [[index_to_word[y] for y in x] for x in x_train]
 x_test_words = [[index_to_word[y] for y in x] for x in x_test]
 
+x_train_words, labels_train = shuffle_input(x_train_words, labels_train)
+x_test_words, labels_test = shuffle_input(x_test_words, labels_test)
+
 d_glove = load_glove(glove_fp)
 embeding_dim=50
 
-train_inp = get_merge_emb_input(x_train_words, d_glove, embeding_dim*50)
-test_inp = get_merge_emb_input(x_test_words, d_glove, embeding_dim*50)
+train_inp = get_merge_emb_input(x_train_words, d_glove, embeding_dim*200)
+test_inp = get_merge_emb_input(x_test_words, d_glove, embeding_dim*200)
+
+# train_inp = get_sum_emb_input(x_train_words, d_glove)#, 200*embeding_dim
+# test_inp = get_sum_emb_input(x_test_words, d_glove)
 
 train_inp = np.array(train_inp)
 test_inp = np.array(test_inp)
 
-train_inp, labels_train = shuffle_input(train_inp, labels_train)
-test_inp, labels_test = shuffle_input(test_inp, labels_test)
+
+
 
 model = Sequential([
-    Dense(1, activation='softmax', input_shape=(embeding_dim*50,))
+    Dense(1, activation='sigmoid', input_shape=(embeding_dim,)),
+])
+
+# model = Sequential([
+#     Dense(1, activation='sigmoid', input_shape=(embeding_dim*50,)),
+#     Dropout(0.2)
+# ])
+#
+# model = Sequential([
+#     Dense(10, activation='relu', input_shape=(embeding_dim,)),
+#     Dropout(0.2),
+#     Dense(1, activation='sigmoid')
+# ])
+#
+#
+model = Sequential([
+    Dense(200, activation='relu', input_shape=(embeding_dim*200,)),
+    Dropout(0.3),
+    Dense(50, activation='relu', input_shape=(embeding_dim*200,)),
+    Dropout(0.4),
+    Dense(10, activation='relu'),
+    Dropout(0.5),
+    Dense(1, activation='sigmoid')
 ])
 
 model.compile(optimizer=Adam(), loss='binary_crossentropy', metrics=['accuracy'])
-model.fit(train_inp, labels_train, validation_data=(test_inp, labels_test), epochs=1, batch_size=64)
+model.fit(train_inp, labels_train, validation_data=(test_inp, labels_test), epochs=10, batch_size=64)
 
-
-train = np.random.uniform(0,1, 1000)
-labels = [int(x>0.5) for x in train]
-
-model = Sequential([
-    Dense(1, activation='softmax', input_shape=(1,))
-])
-model.compile(optimizer=Adam(), loss='binary_crossentropy', metrics=['accuracy'])
-model.fit(train, labels, epochs=100, batch_size=64)
+# train = np.random.uniform(0,1, 1000)
+# labels = [int(x>0.5) for x in train]
+#
+# model = Sequential([
+#     Dense(1, activation='sigmoid', input_dim=1)
+# ])
+# model.compile(optimizer='rmsprop', loss='binary_crossentropy', metrics=['accuracy'])
+# model.fit(train, labels, nb_epoch=1, batch_size=64)
